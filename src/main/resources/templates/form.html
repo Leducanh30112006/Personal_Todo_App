@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm mới Todo</title>
+  <style>
+    .error { color: red; font-size: 0.9em; }
+    .form-group { margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+<h2>Thêm mới Ghi chú</h2>
+
+<form th:action="@{/add}" th:object="${todo}" method="post">
+
+  <div class="form-group">
+    <label>Nội dung:</label><br>
+    <input type="text" th:field="*{content}" placeholder="Nhập nội dung task..."/>
+    <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Hạn chót (DueDate):</label><br>
+    <input type="date" th:field="*{dueDate}" />
+    <div th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}" class="error"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Trạng thái:</label><br>
+    <select th:field="*{status}">
+      <option value="Chưa bắt đầu">Chưa bắt đầu</option>
+      <option value="Đang thực hiện">Đang thực hiện</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Độ ưu tiên:</label><br>
+    <select th:field="*{priority}">
+      <option value="Cao">Cao</option>
+      <option value="Trung bình">Trung bình</option>
+      <option value="Thấp">Thấp</option>
+    </select>
+  </div>
+
+  <button type="submit">Lưu Ghi Chú</button>
+  <a th:href="@{/}">Quay lại</a>
+</form>
+</body>
+</html>
