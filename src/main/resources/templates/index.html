@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Danh sách Todo</title>
-    <style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-    </style>
-</head>
 <body>
 <h2>Danh sách Ghi chú Cá nhân</h2>
+
+<div th:if="${message}" th:text="${message}" style="color: green; font-weight: bold; margin-bottom: 15px;"></div>
+
 <a th:href="@{/add}">+ Thêm Ghi chú mới</a>
 <br><br>
 
@@ -21,7 +16,7 @@
         <th>Hạn chót</th>
         <th>Trạng thái</th>
         <th>Độ ưu tiên</th>
-    </tr>
+        <th>Hành động</th> </tr>
     </thead>
     <tbody>
     <tr th:each="todo : ${todos}">
@@ -30,6 +25,13 @@
         <td th:text="${todo.dueDate}"></td>
         <td th:text="${todo.status}"></td>
         <td th:text="${todo.priority}"></td>
+        <td>
+            <a th:href="@{/edit/{id}(id=${todo.id})}">Sửa</a> |
+
+            <a th:href="@{/delete/{id}(id=${todo.id})}"
+               onclick="return confirm('Bạn có chắc chắn muốn xóa task này không?');"
+               style="color: red;">Xóa</a>
+        </td>
     </tr>
     </tbody>
 </table>

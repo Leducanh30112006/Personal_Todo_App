@@ -12,7 +12,7 @@
 <h2>Thêm mới Ghi chú</h2>
 
 <form th:action="@{/add}" th:object="${todo}" method="post">
-
+  <input type="hidden" th:field="*{id}" />
   <div class="form-group">
     <label>Nội dung:</label><br>
     <input type="text" th:field="*{content}" placeholder="Nhập nội dung task..."/>
@@ -45,5 +45,6 @@
   <button type="submit">Lưu Ghi Chú</button>
   <a th:href="@{/}">Quay lại</a>
 </form>
+
 </body>
 </html>
