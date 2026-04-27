@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{app.title}">Danh sách Todo</title>
+</head>
 <body>
-<h2>Danh sách Ghi chú Cá nhân</h2>
+<div style="text-align: right;">
+    <a th:href="@{''(lang='vi')}">🇻🇳 Tiếng Việt</a> |
+    <a th:href="@{''(lang='en')}">🇬🇧 English</a>
+</div>
 
-<div th:if="${message}" th:text="${message}" style="color: green; font-weight: bold; margin-bottom: 15px;"></div>
+<h2 th:text="#{app.title}">Danh sách Ghi chú</h2>
 
-<a th:href="@{/add}">+ Thêm Ghi chú mới</a>
+<h3 style="color: blue;">
+    <span th:text="#{app.owner}"></span>
+    <span th:text="${session.ownerName}"></span>
+</h3>
+
+<div th:if="${message}" th:text="${message}" style="color: green;"></div>
+
+<a th:href="@{/add}" th:text="#{btn.add}">+ Thêm Ghi chú</a>
 <br><br>
 
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Nội dung</th>
-        <th>Hạn chót</th>
-        <th>Trạng thái</th>
-        <th>Độ ưu tiên</th>
-        <th>Hành động</th> </tr>
+        <th th:text="#{table.id}">ID</th>
+        <th th:text="#{table.content}">Nội dung</th>
+        <th th:text="#{table.dueDate}">Hạn chót</th>
+        <th th:text="#{table.status}">Trạng thái</th>
+        <th th:text="#{table.priority}">Độ ưu tiên</th>
+        <th th:text="#{table.action}">Hành động</th>
+    </tr>
     </thead>
     <tbody>
     <tr th:each="todo : ${todos}">
@@ -26,11 +41,12 @@
         <td th:text="${todo.status}"></td>
         <td th:text="${todo.priority}"></td>
         <td>
-            <a th:href="@{/edit/{id}(id=${todo.id})}">Sửa</a> |
+            <a th:href="@{/edit/{id}(id=${todo.id})}" th:text="#{btn.edit}">Sửa</a> |
 
             <a th:href="@{/delete/{id}(id=${todo.id})}"
-               onclick="return confirm('Bạn có chắc chắn muốn xóa task này không?');"
-               style="color: red;">Xóa</a>
+               th:data-confirm-msg="#{msg.confirm.delete}"
+               onclick="return confirm(this.getAttribute('data-confirm-msg'));"
+               style="color: red;" th:text="#{btn.delete}">Xóa</a>
         </td>
     </tr>
     </tbody>
